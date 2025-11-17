@@ -1,0 +1,57 @@
+package kr.kro.moonlightmoist.shopapi.product.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@ToString
+@Table(name = "product_options")
+public class ProductOption {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(unique = true, nullable = false)
+    private String optionName;
+
+    @Column(nullable = false)
+    private int purchasePrice;
+
+    @Column(nullable = false)
+    private int sellingPrice;
+
+    @Column(nullable = false)
+    private int currentStock;
+
+    @Column(nullable = false)
+    private int initialStock;
+
+    @Column(nullable = false)
+    private int safetyStock;
+
+    @Column(nullable = true)
+    private String imageUrl;
+
+    @Column(nullable = false)
+    private int displayOrder;
+
+    @Column(name = "is_deleted", nullable = false)
+    private boolean deleted;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+}
