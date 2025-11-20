@@ -2,9 +2,15 @@ package kr.kro.moonlightmoist.shopapi.user.domain;
 
 import jakarta.persistence.*;
 import kr.kro.moonlightmoist.shopapi.common.domain.BaseTimeEntity;
+import lombok.*;
 
-import java.time.LocalDate;
-
+@Entity
+@Table(name = "user_with_drawal")
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class UserWithdrawal extends BaseTimeEntity { // 회원탈퇴 테이블
 
     @Id
@@ -15,7 +21,7 @@ public class UserWithdrawal extends BaseTimeEntity { // 회원탈퇴 테이블
     @Column(nullable = false)
     private UserWithdrawalReason userWithdrawalReason;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
