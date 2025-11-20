@@ -9,6 +9,8 @@ import org.hibernate.annotations.Check;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @ToString
@@ -65,5 +67,12 @@ public class Order extends BaseTimeEntity {
 
     @Column(name = "is_deleted", nullable = false)
     private boolean deleted;
+
+    @OneToOne
+    private OrderCoupon orderCoupon;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
 }
