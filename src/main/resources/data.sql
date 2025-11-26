@@ -1,118 +1,118 @@
 
 -- 1. categories 테이블에 데이터 삽입
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('스킨케어', 0, 0, NOW(), NOW(), FALSE, NULL),
-('마스크팩', 0, 1, NOW(), NOW(), FALSE, NULL),
-('클렌징', 0, 2, NOW(), NOW(), FALSE, NULL),
-('선케어', 0, 3, NOW(), NOW(), FALSE, NULL),
-('클렌징', 0, 4, NOW(), NOW(), FALSE, NULL),
-('메이크업', 0, 5, NOW(), NOW(), FALSE, NULL),
-('메이크업 툴', 0, 6, NOW(), NOW(), FALSE, NULL),
-('헤어케어', 0, 7, NOW(), NOW(), FALSE, NULL),
-('바디케어', 0, 8, NOW(), NOW(), FALSE, NULL),
-('향수/디퓨저', 0, 9, NOW(), NOW(), FALSE, NULL);
+('스킨케어', 1, 0, NOW(), NOW(), FALSE, NULL),
+('마스크팩', 1, 1, NOW(), NOW(), FALSE, NULL),
+('클렌징', 1, 2, NOW(), NOW(), FALSE, NULL),
+('선케어', 1, 3, NOW(), NOW(), FALSE, NULL),
+('클렌징', 1, 4, NOW(), NOW(), FALSE, NULL),
+('메이크업', 1, 5, NOW(), NOW(), FALSE, NULL),
+('메이크업 툴', 1, 6, NOW(), NOW(), FALSE, NULL),
+('헤어케어', 1, 7, NOW(), NOW(), FALSE, NULL),
+('바디케어', 1, 8, NOW(), NOW(), FALSE, NULL),
+('향수/디퓨저', 1, 9, NOW(), NOW(), FALSE, NULL);
 
--- depth:1 스킨케어 하위 카테고리
+-- depth:2 스킨케어 하위 카테고리
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('스킨/토너', 1, 0, NOW(), NOW(), FALSE, 1),
-('에센스/세럼/앰플', 1, 1, NOW(), NOW(), FALSE, 1),
-('크림/아이크림', 1, 2, NOW(), NOW(), FALSE, 1),
-('로션', 1, 3, NOW(), NOW(), FALSE, 1),
-('미스트/오일', 1, 4, NOW(), NOW(), FALSE, 1),
-('스킨케어세트', 1, 5, NOW(), NOW(), FALSE, 1),
-('스킨케어 디바이스', 1, 6, NOW(), NOW(), FALSE, 1);
+('스킨/토너', 2, 0, NOW(), NOW(), FALSE, 1),
+('에센스/세럼/앰플', 2, 1, NOW(), NOW(), FALSE, 1),
+('크림/아이크림', 2, 2, NOW(), NOW(), FALSE, 1),
+('로션', 2, 3, NOW(), NOW(), FALSE, 1),
+('미스트/오일', 2, 4, NOW(), NOW(), FALSE, 1),
+('스킨케어세트', 2, 5, NOW(), NOW(), FALSE, 1),
+('스킨케어 디바이스', 2, 6, NOW(), NOW(), FALSE, 1);
 
--- depth:1 마스크팩 하위
+-- depth:2 마스크팩 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('시트팩', 1, 0, NOW(), NOW(), FALSE, 2),
-('패드', 1, 1, NOW(), NOW(), FALSE, 2),
-('페이셜팩', 1, 2, NOW(), NOW(), FALSE, 2),
-('코팩', 1, 3, NOW(), NOW(), FALSE, 2),
-('패치', 1, 4, NOW(), NOW(), FALSE, 2);
+('시트팩', 2, 0, NOW(), NOW(), FALSE, 2),
+('패드', 2, 1, NOW(), NOW(), FALSE, 2),
+('페이셜팩', 2, 2, NOW(), NOW(), FALSE, 2),
+('코팩', 2, 3, NOW(), NOW(), FALSE, 2),
+('패치', 2, 4, NOW(), NOW(), FALSE, 2);
 
--- depth:1 클렌징 하위
+-- depth:2 클렌징 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('클렌징폼/젤', 1, 0, NOW(), NOW(), FALSE, 3),
-('오일/밤', 1, 1, NOW(), NOW(), FALSE, 3),
-('워터/밀크', 1, 2, NOW(), NOW(), FALSE, 3),
-('필링&스크럽', 1, 3, NOW(), NOW(), FALSE, 3),
-('티슈/패드', 1, 4, NOW(), NOW(), FALSE, 3),
-('립&아이리무버', 1, 5, NOW(), NOW(), FALSE, 3),
-('클렌징 디바이스', 1, 6, NOW(), NOW(), FALSE, 3);
+('클렌징폼/젤', 2, 0, NOW(), NOW(), FALSE, 3),
+('오일/밤', 2, 1, NOW(), NOW(), FALSE, 3),
+('워터/밀크', 2, 2, NOW(), NOW(), FALSE, 3),
+('필링&스크럽', 2, 3, NOW(), NOW(), FALSE, 3),
+('티슈/패드', 2, 4, NOW(), NOW(), FALSE, 3),
+('립&아이리무버', 2, 5, NOW(), NOW(), FALSE, 3),
+('클렌징 디바이스', 2, 6, NOW(), NOW(), FALSE, 3);
 
--- depth:1 선케어 하위
+-- depth:2 선케어 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('선크림', 1, 0, NOW(), NOW(), FALSE, 4),
-('선스틱', 1, 1, NOW(), NOW(), FALSE, 4),
-('선쿠션', 1, 2, NOW(), NOW(), FALSE, 4),
-('선스프레이/선패치', 1, 3, NOW(), NOW(), FALSE, 4),
-('태닝/애프터선', 1, 4, NOW(), NOW(), FALSE, 4);
+('선크림', 2, 0, NOW(), NOW(), FALSE, 4),
+('선스틱', 2, 1, NOW(), NOW(), FALSE, 4),
+('선쿠션', 2, 2, NOW(), NOW(), FALSE, 4),
+('선스프레이/선패치', 2, 3, NOW(), NOW(), FALSE, 4),
+('태닝/애프터선', 2, 4, NOW(), NOW(), FALSE, 4);
 
--- depth:1 메이크업 하위
+-- depth:2 메이크업 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('립메이크업', 1, 0, NOW(), NOW(), FALSE, 5),
-('베이스메이크업', 1, 1, NOW(), NOW(), FALSE, 5),
-('아이메이크업', 1, 2, NOW(), NOW(), FALSE, 5);
+('립메이크업', 2, 0, NOW(), NOW(), FALSE, 5),
+('베이스메이크업', 2, 1, NOW(), NOW(), FALSE, 5),
+('아이메이크업', 2, 2, NOW(), NOW(), FALSE, 5);
 
--- depth:1 메이크업 툴 하위
+-- depth:2 메이크업 툴 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('메이크업 툴', 1, 0, NOW(), NOW(), FALSE, 6),
-('아이래쉬 툴', 1, 1, NOW(), NOW(), FALSE, 6),
-('페이스 툴', 1, 2, NOW(), NOW(), FALSE, 6),
-('헤어/바디 툴', 1, 3, NOW(), NOW(), FALSE, 6),
-('데일리 툴', 1, 4, NOW(), NOW(), FALSE, 6);
+('메이크업 툴', 2, 0, NOW(), NOW(), FALSE, 6),
+('아이래쉬 툴', 2, 1, NOW(), NOW(), FALSE, 6),
+('페이스 툴', 2, 2, NOW(), NOW(), FALSE, 6),
+('헤어/바디 툴', 2, 3, NOW(), NOW(), FALSE, 6),
+('데일리 툴', 2, 4, NOW(), NOW(), FALSE, 6);
 
--- depth:1 헤어케어 하위
+-- depth:2 헤어케어 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('샴푸/린스', 1, 0, NOW(), NOW(), FALSE, 7),
-('트리트먼트/팩', 1, 1, NOW(), NOW(), FALSE, 7),
-('두피앰플/토닉', 1, 2, NOW(), NOW(), FALSE, 7),
-('헤어에센스', 1, 3, NOW(), NOW(), FALSE, 7),
-('염색약/펌', 1, 4, NOW(), NOW(), FALSE, 7),
-('헤어기기/브러시', 1, 5, NOW(), NOW(), FALSE, 7),
-('스타일링', 1, 6, NOW(), NOW(), FALSE, 7);
+('샴푸/린스', 2, 0, NOW(), NOW(), FALSE, 7),
+('트리트먼트/팩', 2, 1, NOW(), NOW(), FALSE, 7),
+('두피앰플/토닉', 2, 2, NOW(), NOW(), FALSE, 7),
+('헤어에센스', 2, 3, NOW(), NOW(), FALSE, 7),
+('염색약/펌', 2, 4, NOW(), NOW(), FALSE, 7),
+('헤어기기/브러시', 2, 5, NOW(), NOW(), FALSE, 7),
+('스타일링', 2, 6, NOW(), NOW(), FALSE, 7);
 
--- depth:1 바디케어 하위
+-- depth:2 바디케어 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('바디로션/크림', 1, 0, NOW(), NOW(), FALSE, 8),
-('오일/미스트', 1, 1, NOW(), NOW(), FALSE, 8),
-('핸드케어', 1, 2, NOW(), NOW(), FALSE, 8),
-('풋케어', 1, 3, NOW(), NOW(), FALSE, 8),
-('샤워/입욕', 1, 4, NOW(), NOW(), FALSE, 8),
-('제모/왁싱', 1, 5, NOW(), NOW(), FALSE, 8),
-('데오드란트', 1, 6, NOW(), NOW(), FALSE, 8),
-('베이비', 1, 7, NOW(), NOW(), FALSE, 8);
+('바디로션/크림', 2, 0, NOW(), NOW(), FALSE, 8),
+('오일/미스트', 2, 1, NOW(), NOW(), FALSE, 8),
+('핸드케어', 2, 2, NOW(), NOW(), FALSE, 8),
+('풋케어', 2, 3, NOW(), NOW(), FALSE, 8),
+('샤워/입욕', 2, 4, NOW(), NOW(), FALSE, 8),
+('제모/왁싱', 2, 5, NOW(), NOW(), FALSE, 8),
+('데오드란트', 2, 6, NOW(), NOW(), FALSE, 8),
+('베이비', 2, 7, NOW(), NOW(), FALSE, 8);
 
--- depth:1 향수/디퓨저 하위
+-- depth:2 향수/디퓨저 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('향수', 1, 0, NOW(), NOW(), FALSE, 9),
-('미니/고체향수', 1, 1, NOW(), NOW(), FALSE, 9),
-('홈프래그런스', 1, 2, NOW(), NOW(), FALSE, 9);
+('향수', 2, 0, NOW(), NOW(), FALSE, 9),
+('미니/고체향수', 2, 1, NOW(), NOW(), FALSE, 9),
+('홈프래그런스', 2, 2, NOW(), NOW(), FALSE, 9);
 
--- depth:2 스킨케어 하위의 하위
+-- depth:3 스킨케어 하위의 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('스킨/토너', 2, 0, NOW(), NOW(), FALSE, 11),
-('에센스/세럼/앰플', 2, 0, NOW(), NOW(), FALSE, 12),
-('크림', 2, 0, NOW(), NOW(), FALSE, 13),
-('아이크림', 2, 1, NOW(), NOW(), FALSE, 13),
-('로션', 2, 0, NOW(), NOW(), FALSE, 14),
-('올인원', 2, 1, NOW(), NOW(), FALSE, 14),
-('미스트/픽서', 2, 0, NOW(), NOW(), FALSE, 15),
-('페이스오일', 2, 1, NOW(), NOW(), FALSE, 15),
-('스킨케어세트', 2, 0, NOW(), NOW(), FALSE, 16),
-('스킨케어 디바이스', 2, 0, NOW(), NOW(), FALSE, 17);
+('스킨/토너', 3, 0, NOW(), NOW(), FALSE, 11),
+('에센스/세럼/앰플', 3, 0, NOW(), NOW(), FALSE, 12),
+('크림', 3, 0, NOW(), NOW(), FALSE, 13),
+('아이크림', 3, 1, NOW(), NOW(), FALSE, 13),
+('로션', 3, 0, NOW(), NOW(), FALSE, 14),
+('올인원', 3, 1, NOW(), NOW(), FALSE, 14),
+('미스트/픽서', 3, 0, NOW(), NOW(), FALSE, 15),
+('페이스오일', 3, 1, NOW(), NOW(), FALSE, 15),
+('스킨케어세트', 3, 0, NOW(), NOW(), FALSE, 16),
+('스킨케어 디바이스', 3, 0, NOW(), NOW(), FALSE, 17);
 
--- depth:2 마스크팩 하위의 하위
+-- depth:3 마스크팩 하위의 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('시트 마스크', 2, 0, NOW(), NOW(), FALSE, 18),
-('겔 마스크', 2, 1, NOW(), NOW(), FALSE, 18),
-('패드', 2, 0, NOW(), NOW(), FALSE, 19),
-('워시오프팩', 2, 0, NOW(), NOW(), FALSE, 20),
-('모델링팩', 2, 1, NOW(), NOW(), FALSE, 20),
-('필오프팩', 2, 2, NOW(), NOW(), FALSE, 20),
-('슬리핑/앰플팩', 2, 3, NOW(), NOW(), FALSE, 20),
-('코팩', 2, 0, NOW(), NOW(), FALSE, 21),
-('패치', 2, 0, NOW(), NOW(), FALSE, 22);
+('시트 마스크', 3, 0, NOW(), NOW(), FALSE, 18),
+('겔 마스크', 3, 1, NOW(), NOW(), FALSE, 18),
+('패드', 3, 0, NOW(), NOW(), FALSE, 19),
+('워시오프팩', 3, 0, NOW(), NOW(), FALSE, 20),
+('모델링팩', 3, 1, NOW(), NOW(), FALSE, 20),
+('필오프팩', 3, 2, NOW(), NOW(), FALSE, 20),
+('슬리핑/앰플팩', 3, 3, NOW(), NOW(), FALSE, 20),
+('코팩', 3, 0, NOW(), NOW(), FALSE, 21),
+('패치', 3, 0, NOW(), NOW(), FALSE, 22);
 
 -- 2. brands 테이블에 데이터 삽입 (임시)
 INSERT INTO brands (name, is_deleted, created_at, updated_at) VALUES
