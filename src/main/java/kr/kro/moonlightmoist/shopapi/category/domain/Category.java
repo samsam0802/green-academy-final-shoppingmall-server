@@ -29,7 +29,7 @@ public class Category extends BaseTimeEntity {
     @Builder.Default
     private List<Category> subCategories = new ArrayList<>();
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = false, nullable = false)
     private String name;
 
     @Column(nullable = false)

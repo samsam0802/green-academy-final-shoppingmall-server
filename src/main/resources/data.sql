@@ -1,55 +1,126 @@
 
 -- 1. categories 테이블에 데이터 삽입
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('메이크업', 0, 0, NOW(), NOW(), FALSE, NULL),
-('스킨케어', 0, 1, NOW(), NOW(), FALSE, NULL),
-('마스크/팩', 0, 2, NOW(), NOW(), FALSE, NULL),
+('스킨케어', 0, 0, NOW(), NOW(), FALSE, NULL),
+('마스크팩', 0, 1, NOW(), NOW(), FALSE, NULL),
+('클렌징', 0, 2, NOW(), NOW(), FALSE, NULL),
 ('선케어', 0, 3, NOW(), NOW(), FALSE, NULL),
 ('클렌징', 0, 4, NOW(), NOW(), FALSE, NULL),
-('헤어케어', 0, 5, NOW(), NOW(), FALSE, NULL),
-('바디케어', 0, 6, NOW(), NOW(), FALSE, NULL);
+('메이크업', 0, 5, NOW(), NOW(), FALSE, NULL),
+('메이크업 툴', 0, 6, NOW(), NOW(), FALSE, NULL),
+('헤어케어', 0, 7, NOW(), NOW(), FALSE, NULL),
+('바디케어', 0, 8, NOW(), NOW(), FALSE, NULL),
+('향수/디퓨저', 0, 9, NOW(), NOW(), FALSE, NULL);
 
--- 메이크업 하위 카테고리
+-- depth:1 스킨케어 하위 카테고리
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('베이스', 1, 0, NOW(), NOW(), FALSE, 1),
-('립', 1, 1, NOW(), NOW(), FALSE, 1),
-('아이', 1, 2, NOW(), NOW(), FALSE, 1),
-('치크/컨투어링', 1, 3, NOW(), NOW(), FALSE, 1);
+('스킨/토너', 1, 0, NOW(), NOW(), FALSE, 1),
+('에센스/세럼/앰플', 1, 1, NOW(), NOW(), FALSE, 1),
+('크림/아이크림', 1, 2, NOW(), NOW(), FALSE, 1),
+('로션', 1, 3, NOW(), NOW(), FALSE, 1),
+('미스트/오일', 1, 4, NOW(), NOW(), FALSE, 1),
+('스킨케어세트', 1, 5, NOW(), NOW(), FALSE, 1),
+('스킨케어 디바이스', 1, 6, NOW(), NOW(), FALSE, 1);
 
--- 베이스 하위
+-- depth:1 마스크팩 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('쿠션', 2, 0, NOW(), NOW(), FALSE, 8),
-('파운데이션', 2, 1, NOW(), NOW(), FALSE, 8),
-('컨실러', 2, 2, NOW(), NOW(), FALSE, 8),
-('파우더', 2, 3, NOW(), NOW(), FALSE, 8),
-('프라이머/베이스', 2, 4, NOW(), NOW(), FALSE, 8);
+('시트팩', 1, 0, NOW(), NOW(), FALSE, 2),
+('패드', 1, 1, NOW(), NOW(), FALSE, 2),
+('페이셜팩', 1, 2, NOW(), NOW(), FALSE, 2),
+('코팩', 1, 3, NOW(), NOW(), FALSE, 2),
+('패치', 1, 4, NOW(), NOW(), FALSE, 2);
 
--- 립 하위
+-- depth:1 클렌징 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('립스틱', 2, 0, NOW(), NOW(), FALSE, 9),
-('틴트', 2, 1, NOW(), NOW(), FALSE, 9),
-('립케어', 2, 2, NOW(), NOW(), FALSE, 9);
+('클렌징폼/젤', 1, 0, NOW(), NOW(), FALSE, 3),
+('오일/밤', 1, 1, NOW(), NOW(), FALSE, 3),
+('워터/밀크', 1, 2, NOW(), NOW(), FALSE, 3),
+('필링&스크럽', 1, 3, NOW(), NOW(), FALSE, 3),
+('티슈/패드', 1, 4, NOW(), NOW(), FALSE, 3),
+('립&아이리무버', 1, 5, NOW(), NOW(), FALSE, 3),
+('클렌징 디바이스', 1, 6, NOW(), NOW(), FALSE, 3);
 
--- 아이 하위
+-- depth:1 선케어 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('아이라이너', 2, 0, NOW(), NOW(), FALSE, 10),
-('아이섀도우/팔레트', 2, 1, NOW(), NOW(), FALSE, 10),
-('마스카라', 2, 2, NOW(), NOW(), FALSE, 10),
-('아이브로우', 2, 3, NOW(), NOW(), FALSE, 10);
+('선크림', 1, 0, NOW(), NOW(), FALSE, 4),
+('선스틱', 1, 1, NOW(), NOW(), FALSE, 4),
+('선쿠션', 1, 2, NOW(), NOW(), FALSE, 4),
+('선스프레이/선패치', 1, 3, NOW(), NOW(), FALSE, 4),
+('태닝/애프터선', 1, 4, NOW(), NOW(), FALSE, 4);
 
--- 치크/컨투어링 하위
+-- depth:1 메이크업 하위
 INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
-('블러셔', 2, 0, NOW(), NOW(), FALSE, 11),
-('하이라이터/쉐딩', 2, 1, NOW(), NOW(), FALSE, 11);
+('립메이크업', 1, 0, NOW(), NOW(), FALSE, 5),
+('베이스메이크업', 1, 1, NOW(), NOW(), FALSE, 5),
+('아이메이크업', 1, 2, NOW(), NOW(), FALSE, 5);
 
+-- depth:1 메이크업 툴 하위
+INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
+('메이크업 툴', 1, 0, NOW(), NOW(), FALSE, 6),
+('아이래쉬 툴', 1, 1, NOW(), NOW(), FALSE, 6),
+('페이스 툴', 1, 2, NOW(), NOW(), FALSE, 6),
+('헤어/바디 툴', 1, 3, NOW(), NOW(), FALSE, 6),
+('데일리 툴', 1, 4, NOW(), NOW(), FALSE, 6);
+
+-- depth:1 헤어케어 하위
+INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
+('샴푸/린스', 1, 0, NOW(), NOW(), FALSE, 7),
+('트리트먼트/팩', 1, 1, NOW(), NOW(), FALSE, 7),
+('두피앰플/토닉', 1, 2, NOW(), NOW(), FALSE, 7),
+('헤어에센스', 1, 3, NOW(), NOW(), FALSE, 7),
+('염색약/펌', 1, 4, NOW(), NOW(), FALSE, 7),
+('헤어기기/브러시', 1, 5, NOW(), NOW(), FALSE, 7),
+('스타일링', 1, 6, NOW(), NOW(), FALSE, 7);
+
+-- depth:1 바디케어 하위
+INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
+('바디로션/크림', 1, 0, NOW(), NOW(), FALSE, 8),
+('오일/미스트', 1, 1, NOW(), NOW(), FALSE, 8),
+('핸드케어', 1, 2, NOW(), NOW(), FALSE, 8),
+('풋케어', 1, 3, NOW(), NOW(), FALSE, 8),
+('샤워/입욕', 1, 4, NOW(), NOW(), FALSE, 8),
+('제모/왁싱', 1, 5, NOW(), NOW(), FALSE, 8),
+('데오드란트', 1, 6, NOW(), NOW(), FALSE, 8),
+('베이비', 1, 7, NOW(), NOW(), FALSE, 8);
+
+-- depth:1 향수/디퓨저 하위
+INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
+('향수', 1, 0, NOW(), NOW(), FALSE, 9),
+('미니/고체향수', 1, 1, NOW(), NOW(), FALSE, 9),
+('홈프래그런스', 1, 2, NOW(), NOW(), FALSE, 9);
+
+-- depth:2 스킨케어 하위의 하위
+INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
+('스킨/토너', 2, 0, NOW(), NOW(), FALSE, 11),
+('에센스/세럼/앰플', 2, 0, NOW(), NOW(), FALSE, 12),
+('크림', 2, 0, NOW(), NOW(), FALSE, 13),
+('아이크림', 2, 1, NOW(), NOW(), FALSE, 13),
+('로션', 2, 0, NOW(), NOW(), FALSE, 14),
+('올인원', 2, 1, NOW(), NOW(), FALSE, 14),
+('미스트/픽서', 2, 0, NOW(), NOW(), FALSE, 15),
+('페이스오일', 2, 1, NOW(), NOW(), FALSE, 15),
+('스킨케어세트', 2, 0, NOW(), NOW(), FALSE, 16),
+('스킨케어 디바이스', 2, 0, NOW(), NOW(), FALSE, 17);
+
+-- depth:2 마스크팩 하위의 하위
+INSERT INTO categories (name, depth, display_order, created_at, updated_at, is_deleted, parent_id) VALUES
+('시트 마스크', 2, 0, NOW(), NOW(), FALSE, 18),
+('겔 마스크', 2, 1, NOW(), NOW(), FALSE, 18),
+('패드', 2, 0, NOW(), NOW(), FALSE, 19),
+('워시오프팩', 2, 0, NOW(), NOW(), FALSE, 20),
+('모델링팩', 2, 1, NOW(), NOW(), FALSE, 20),
+('필오프팩', 2, 2, NOW(), NOW(), FALSE, 20),
+('슬리핑/앰플팩', 2, 3, NOW(), NOW(), FALSE, 20),
+('코팩', 2, 0, NOW(), NOW(), FALSE, 21),
+('패치', 2, 0, NOW(), NOW(), FALSE, 22);
 
 -- 2. brands 테이블에 데이터 삽입 (임시)
 INSERT INTO brands (name, is_deleted, created_at, updated_at) VALUES
-('설화수', FALSE, NOW(), NOW()),
-('후', FALSE, NOW(), NOW()),
-('雪花秀', FALSE, NOW(), NOW()),
+('바이오더마', FALSE, NOW(), NOW()),
+('달바', FALSE, NOW(), NOW()),
 ('에스트라', FALSE, NOW(), NOW()),
-('라네즈', FALSE, NOW(), NOW()),
+('구달', FALSE, NOW(), NOW()),
+('메디힐', FALSE, NOW(), NOW()),
 ('이니스프리', FALSE, NOW(), NOW()),
 ('더페이스샵', FALSE, NOW(), NOW()),
 ('미샤', FALSE, NOW(), NOW()),
@@ -67,11 +138,55 @@ INSERT INTO delivery_policies (name, policy_type, basic_delivery_fee, free_condi
 
 -- 3. products 테이블에 데이터 삽입 (임시)
 INSERT INTO products (brand_id, category_id, delivery_policy_id, use_restock_noti, product_name, product_code, search_keywords, exposure_status, sale_status, description, is_cancelable, is_deleted, created_at, updated_at) VALUES
-(1, 1, 1, TRUE, '설화수 자음수', 'SHS_001', '설화수 자음수 스킨 토너', 'EXPOSURE', 'ON_SALE', '설화수 대표 토너로 촉촉한 보습감을 선사합니다.', true, false, NOW(), NOW()),
-(2, 2, 3, TRUE, '후 선크림', 'WHOO_001', '후 선크림 자외선차단', 'EXPOSURE', 'ON_SALE', '우아한 보송함을 선사하는 선크림', true, false, NOW(), NOW()),
-(5, 3, 2, FALSE, '라네즈 크림 스킨', 'LANEIGE_001', '라네즈 스킨 토너', 'EXPOSURE', 'ON_SALE', '수분 가득한 스킨으로 피부를 촉촉하게', true, false, NOW(), NOW()),
-(6, 4, 2, FALSE, '이니스프리 그린티 씨드 세럼', 'INNIS_001', '이니스프리 세럼 그린티', 'EXPOSURE', 'ON_SALE', '녹차씨드 함유로 피부 진정에 도움을 주는 세럼', true, false, NOW(), NOW()),
-(7, 5, 2, FALSE, '더페이스샵 립앤아이 리무버', 'TFS_001', '더페이스샵 아이리무버 립메이크업', 'EXPOSURE', 'ON_SALE', '순하게 메이크업을 지워주는 리무버', true, false, NOW(), NOW());
+(1, 61, 2, TRUE, '바이오더마 하이드라비오 토너 500ml 기획(+화장솜 20매 증정)', 'SHS_001', '바이오더마 스킨 토너', 'EXPOSURE', 'ON_SALE', '설명 없음', true, false, NOW(), NOW()),
+(2, 62, 2, TRUE, '[NO.1 미스트세럼] 달바 퍼스트 스프레이 세럼 100ml 2개 기획', 'WHOO_001', '달바 세럼', 'EXPOSURE', 'ON_SALE', '설명 없음', true, false, NOW(), NOW()),
+(3, 63, 2, FALSE, '에스트라 아토베리어365 크림 80ml 기획', 'LANEIGE_001', '에스트라 크림', 'EXPOSURE', 'ON_SALE', '설명 없음', true, false, NOW(), NOW()),
+(4, 64, 2, FALSE, '구달 청귤 비타C 잡티케어 아이크림 30ml 1+1 기획', 'INNIS_001', '구달 아이크림', 'EXPOSURE', 'ON_SALE', '설명 없음', true, false, NOW(), NOW()),
+(5, 71, 2, FALSE, '메디힐 에센셜 마스크팩 1매 고기능 7종 택1', 'TFS_001', '메디힐 마스크팩', 'EXPOSURE', 'ON_SALE', '설명 없음', true, false, NOW(), NOW());
+
+
+-- product_main_images 데이터
+INSERT INTO product_main_images (product_id, image_type, display_order, image_url) VALUES
+(1, 'THUMBNAIL', 0, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0018/A00000018491610ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(1, 'GALLERY', 1, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0018/A00000018491607ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(1, 'GALLERY', 2, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0018/A00000018491608ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(2, 'THUMBNAIL', 0, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0023/A00000023272408ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(2, 'GALLERY', 1, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0023/A00000023272409ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(2, 'GALLERY', 2, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0023/A00000023272403ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(3, 'THUMBNAIL', 0, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0022/A00000022283315ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(3, 'GALLERY', 1, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0022/A00000022283312ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(3, 'GALLERY', 2, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0022/A00000022283314ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(4, 'THUMBNAIL', 0, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0022/A00000022977610ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(4, 'GALLERY', 1, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0022/A00000022977608ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(4, 'GALLERY', 2, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0022/A00000022977609ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'THUMBNAIL', 0, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762049ko.png?l=ko&QT=100&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 1, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762035ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 2, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762045ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 3, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762033ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 4, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762036ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 5, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762041ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 6, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762038ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5'),
+(5, 'GALLERY', 7, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0021/A00000021762037ko.jpg?l=ko&QT=85&SF=webp&sharpen=1x0.5');
+
+
+-- product_options 테이블 데이터
+INSERT INTO product_options
+(product_id, option_name, purchase_price, selling_price,
+ current_stock, initial_stock, safety_stock,
+ image_url, display_order,
+ is_deleted, created_at, updated_at)
+VALUES
+(1, '바이오더마 토너 500ml 기획', 10000, 30000, 80, 100, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt1', 0, false, NOW(), NOW()),
+(2, '달바 퍼스트 스프레이 세럼 100ml 2개 기획', 20000, 59800, 80, 100, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt2', 0, false, NOW(), NOW()),
+(3, '에스트라 아토베리어365 크림 80ml 기획', 15000, 33000, 120, 120, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt3', 0, false, NOW(), NOW()),
+(4, '구달 청귤 비타C 잡티케어 아이크림 30ml', 15000, 24000, 90, 90, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt4', 0, false, NOW(), NOW()),
+(5, '티트리 진정수분 1매', 500, 1000, 80, 100, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/1/2095773322051515522.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 0, false, NOW(), NOW()),
+(5, '콜라겐 코어탄력 1매', 500, 1000, 80, 100, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/1/4292023589387008731.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 1, false, NOW(), NOW()),
+(5, '비타민씨 잡티토닝 1매', 500, 1000, 120, 120, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/1/6333511698168958736.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 2, false, NOW(), NOW()),
+(5, '세라마이드 보습장벽 1매', 500, 1000, 90, 90, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/1/5177396663963625881.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 3, false, NOW(), NOW()),
+(5, '마데카소사이드 흔적리페어 1매', 800, 2000, 70, 70, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/1/1550813712772282449.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 4, false, NOW(), NOW()),
+(5, '로제 PDRN 모공결광 1매', 800, 2000, 90, 90, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/3/927811821371366876.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 5, false, NOW(), NOW()),
+(5, '히알루론산 고밀도 수분 1매', 800, 2000, 70, 70, 10, 'https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/options/item/2025/2/7886183073217244310.jpg?RS=108x0&QT=85&SF=webp&sharpen=1x0.5', 6, false, NOW(), NOW());
 
 
 -- 민석 users 테이블에 데이터 삽입 (임시)
@@ -94,28 +209,6 @@ VALUES
 (3, 3, NOW(), NOW()),
 (4, 4, NOW(), NOW()),
 (5, 5, NOW(), NOW());
-
--- 민석 product_options 테이블 데이터(임시)
-INSERT INTO product_options
-(id, product_id, option_name, purchase_price, selling_price, current_stock,
- initial_stock, safety_stock, image_url, display_order, is_deleted,
- created_at, updated_at)
-VALUES
-(1, 1, '150ml', 3000, 5000, 100, 100, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt1', 0, false, NOW(), NOW()),
-(2, 2, '120ml', 3500, 6500, 80, 80, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt2', 0, false, NOW(), NOW()),
-(3, 3, '200ml', 4000, 7000, 120, 120, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt3', 0, false, NOW(), NOW()),
-(4, 4, '100ml', 2500, 4500, 90, 90, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt4', 0, false, NOW(), NOW()),
-(5, 5, '180ml', 5000, 9000, 70, 70, 10, 'https://dummyimage.com/300x300/000/fff.png&text=Opt5', 0, false, NOW(), NOW());
-
--- 민석 product_main_images 테이블 데이터(임시)
-INSERT INTO product_main_images
-(product_id, image_url, display_order, image_type)
-VALUES
-(1, 'https://dummyimage.com/300x300/000/fff.png&text=PRD1', 0, 0),
-(2, 'https://dummyimage.com/300x300/000/fff.png&text=PRD2', 0, 0),
-(3, 'https://dummyimage.com/300x300/000/fff.png&text=PRD3', 0, 0),
-(4, 'https://dummyimage.com/300x300/000/fff.png&text=PRD4', 0, 0),
-(5, 'https://dummyimage.com/300x300/000/fff.png&text=PRD5', 0, 0);
 
 
 -- review 테이블 더미 데이터
