@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<CategoryRes> getCategoryList() {
-        List<CategoryRes> categoryResList = categoryRepository.findByDepthAndDeletedFalse(0)
+        List<CategoryRes> categoryResList = categoryRepository.findByDepthAndDeletedFalse(1)
                 .stream().map(category -> category.toDTO()).toList();
         return categoryResList;
     }
