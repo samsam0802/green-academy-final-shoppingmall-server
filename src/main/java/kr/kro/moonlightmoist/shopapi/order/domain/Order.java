@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@ToString
+@ToString(exclude = {"user", "orderProducts"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,30 +31,31 @@ public class Order extends BaseTimeEntity {
     private String orderNumber;
     @Column(nullable = false)
     private String paymentMethod;
-    @ManyToOne
-    @JoinColumn(name="delivery_policy_id",nullable = true)
-    private DeliveryPolicy deliveryPolicy;
-    @Column(nullable = false)
-    private int deliveryFee;
+//    @ManyToOne
+//    @JoinColumn(name="delivery_policy_id",nullable = true)
+//    private DeliveryPolicy deliveryPolicy;
     //예상 배송일
     @Column(nullable = false)
     private LocalDate expectedDeliveryDate;
     //총 상품 금액
     @Column(nullable = false)
     private int totalProductAmount;
+    //배송비(스냅샷)
+    @Column(nullable = false)
+    private int deliveryFee;
     //쿠폰 할인 금액
     @Column(nullable = false)
     private int discountAmount;
     //사용된 포인트
     @Column(nullable = false)
-    private int usedpoints;
+    private int usedPoints;
     //최종 결제 금액
     @Column(nullable = false)
     private int finalAmount;
     @Column(nullable = false)
-    private String recipientName;
+    private String receiverName;
     @Column(nullable = false)
-    private String recipientPhone;
+    private String receiverPhone;
     @Column(nullable = false)
     private String postalCode;
     @Column(nullable = false)
@@ -68,8 +69,8 @@ public class Order extends BaseTimeEntity {
     @Column(name = "is_deleted", nullable = false)
     private boolean deleted;
 
-    @OneToOne
-    private OrderCoupon orderCoupon;
+//    @OneToOne
+//    private OrderCoupon orderCoupon;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @Builder.Default
