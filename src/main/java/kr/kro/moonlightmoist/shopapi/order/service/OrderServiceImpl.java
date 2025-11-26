@@ -67,6 +67,38 @@ public class OrderServiceImpl implements OrderService{
         return basicFee;
     }
 
+    public OrderResponseDTO toDto(Order order) {
+        OrderResponseDTO orderResponseDTO = OrderResponseDTO.builder()
+                .id(order.getId())
+                .orderNumber(order.getOrderNumber())
+                .deliveryFee(order.getDeliveryFee())
+                .deliveryRequest(order.getDeliveryRequest())
+                .detailedAddress(order.getDetailedAddress())
+                .discountAmount(order.getDiscountAmount())
+                .usedPoints(order.getUsedPoints())
+                .finalAmount(order.getFinalAmount())
+                .expectedDeliveryDate(order.getExpectedDeliveryDate())
+                .receiverName(order.getReceiverName())
+                .receiverPhone(order.getReceiverPhone())
+                .streetAddress(order.getStreetAddress())
+                .paymentMethod(order.getPaymentMethod())
+                .totalProductAmount(order.getTotalProductAmount())
+                .postalCode(order.getPostalCode())
+                .build();
+        for(OrderProduct op : order.getOrderProducts()){
+            OrderProductResponseDTO orderProductResponseDTO = OrderProductResponseDTO.builder()
+                    .id(op.getId())
+                    .brandName(op.getProductOption().getProduct().getBrand().getName())
+                    .productName(op.getProductOption().getProduct().getBasicInfo().getProductName())
+                    .productOptionName(op.getProductOption().getOptionName())
+                    .purchasedPrice(op.getPurchasedPrice())
+                    .quantity(op.getQuantity())
+                    .build();
+            orderResponseDTO.getOrderProducts().add(orderProductResponseDTO);
+        }
+        return orderResponseDTO;
+    }
+
     @Override
     public Long createOrder(OrderRequestDTO dto, Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
@@ -124,39 +156,19 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderResponseDTO> getOrder(Long userId) {
+    public OrderResponseDTO getOneOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        OrderResponseDTO orderResponseDTO = toDto(order);
+        return orderResponseDTO;
+    }
+
+    @Override
+    public List<OrderResponseDTO> getOrderList(Long userId) {
         List<Order> orderByUserId = orderRepository.findOrderByUserId(userId);
         log.info("orderByUserId : {}",orderByUserId);
         List<OrderResponseDTO> ListOfOrderResponseDTO = new ArrayList<>();
         for(Order o : orderByUserId){
-            OrderResponseDTO orderResponseDTO = OrderResponseDTO.builder()
-                    .id(o.getId())
-                    .orderNumber(o.getOrderNumber())
-                    .deliveryFee(o.getDeliveryFee())
-                    .deliveryRequest(o.getDeliveryRequest())
-                    .detailedAddress(o.getDetailedAddress())
-                    .discountAmount(o.getDiscountAmount())
-                    .usedPoints(o.getUsedPoints())
-                    .finalAmount(o.getFinalAmount())
-                    .expectedDeliveryDate(o.getExpectedDeliveryDate())
-                    .receiverName(o.getReceiverName())
-                    .receiverPhone(o.getReceiverPhone())
-                    .streetAddress(o.getStreetAddress())
-                    .paymentMethod(o.getPaymentMethod())
-                    .totalProductAmount(o.getTotalProductAmount())
-                    .postalCode(o.getPostalCode())
-                    .build();
-            for(OrderProduct op : o.getOrderProducts()){
-                OrderProductResponseDTO orderProductResponseDTO = OrderProductResponseDTO.builder()
-                        .id(op.getId())
-                        .brandName(op.getProductOption().getProduct().getBrand().getName())
-                        .productName(op.getProductOption().getProduct().getBasicInfo().getProductName())
-                        .productOptionName(op.getProductOption().getOptionName())
-                        .purchasedPrice(op.getPurchasedPrice())
-                        .quantity(op.getQuantity())
-                        .build();
-                orderResponseDTO.getOrderProducts().add(orderProductResponseDTO);
-            }
+            OrderResponseDTO orderResponseDTO = toDto(o);
             ListOfOrderResponseDTO.add(orderResponseDTO);
         }
 

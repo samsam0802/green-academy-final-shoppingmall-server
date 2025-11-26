@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface OrderService {
     Long createOrder(OrderRequestDTO dto, Long userId);
-    List<OrderResponseDTO> getOrder(Long userId);
+    OrderResponseDTO getOneOrder(Long orderId);
+    List<OrderResponseDTO> getOrderList(Long userId);
 
 }
