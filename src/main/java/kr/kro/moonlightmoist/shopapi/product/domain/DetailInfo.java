@@ -19,18 +19,24 @@ public class DetailInfo {
     private String capacity;
     private String skinType;
     private String usagePeriod;
+    @Lob
     private String usageMethod;
+    @Column(length = 300)
     private String manufacturer;
     private String madeInCountry;
+    @Lob
     private String ingredients;
     private String functionalCertification;
+    @Lob
     private String caution;
+    @Column(length = 300)
     private String qualityGuarantee;
     private String customerServiceNumber;
 
     public DetailInfoDTO toDTO() {
         return DetailInfoDTO.builder()
                 .id(this.id)
+                .capacity(this.capacity)
                 .skinType(this.skinType)
                 .usagePeriod(this.usagePeriod)
                 .usageMethod(this.usageMethod)
