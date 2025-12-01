@@ -16,5 +16,7 @@ public interface ProductService {
     // 관리자페이지에서 검색 조건으로 상품 리스트 조회
     List<ProductResForList> searchProductsByCondition(ProductSearchCondition condition);
     // 상품 수정
+    Long modify(Long id, ProductRequest dto);
+
     // 상품 삭제
 }
