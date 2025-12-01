@@ -71,6 +71,7 @@ public class ProductServiceImpl implements ProductService{
 
         for(int i=0; i<dto.getOptionImageUrls().size(); i++) {
             product.getProductOptions().get(i).setImageUrl(dto.getOptionImageUrls().get(i));
+            product.getProductOptions().get(i).setDisplayOrder(i);
         }
         System.out.println("product.getMainImages() = " + product.getMainImages());
         for(int i=0; i<dto.getMainImageUrls().size(); i++) {
@@ -78,6 +79,8 @@ public class ProductServiceImpl implements ProductService{
             product.getMainImages()
                     .add(ProductMainImage.builder()
                             .imageUrl(dto.getMainImageUrls().get(i))
+                            .imageType(i==0 ? ImageType.THUMBNAIL : ImageType.GALLERY)
+                            .displayOrder(i)
                             .build()
                     );
         }
@@ -87,6 +90,7 @@ public class ProductServiceImpl implements ProductService{
             product.getDetailImages()
                     .add(ProductDetailImage.builder()
                             .imageUrl(dto.getDetailImageUrls().get(i))
+                            .displayOrder(i)
                             .build()
                     );
         }
