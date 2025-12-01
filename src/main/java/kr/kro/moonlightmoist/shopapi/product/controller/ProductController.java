@@ -75,6 +75,19 @@ public class ProductController {
         return ResponseEntity.ok("ok");
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> modifyProduct(
+            @PathVariable(name = "id") Long id,
+            @RequestPart(name = "product") ProductRequest product
+    ) {
+        System.out.println("id = " + id);
+        System.out.println("product = " + product);
+
+        productService.modify(id, product);
+
+        return ResponseEntity.ok("ok");
+    }
+
     @GetMapping("")
     public ResponseEntity<List<ProductResForList>> getProductsByCategory(
             @RequestParam("categoryId") List<Long> depth3CategoryIds) {

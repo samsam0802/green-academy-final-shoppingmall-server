@@ -50,4 +50,21 @@ public class DetailInfo {
                 .build();
     }
 
+    public DetailInfo changeDetailInfo(DetailInfoDTO dto) {
+
+        this.setCapacity(dto.getCapacity());
+        this.setSkinType(dto.getSkinType());
+        this.setUsageMethod(dto.getUsageMethod());
+        this.setUsagePeriod(dto.getUsagePeriod());
+        this.setManufacturer(dto.getManufacturer());
+        this.setMadeInCountry(dto.getMadeInCountry());
+        this.setIngredients(dto.getIngredients());
+        this.setFunctionalCertification(dto.getFunctionalCertification());
+        this.setCaution(dto.getCaution());
+        this.setQualityGuarantee(dto.getQualityGuarantee());
+        this.setCustomerServiceNumber(dto.getCustomerServiceNumber());
+
+        return this;
+    }
+
 }

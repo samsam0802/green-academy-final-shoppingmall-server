@@ -1,17 +1,17 @@
 package kr.kro.moonlightmoist.shopapi.product.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import kr.kro.moonlightmoist.shopapi.brand.domain.Brand;
 import kr.kro.moonlightmoist.shopapi.brand.repository.BrandRepository;
 import kr.kro.moonlightmoist.shopapi.category.domain.Category;
 import kr.kro.moonlightmoist.shopapi.category.repository.CategoryRepository;
 import kr.kro.moonlightmoist.shopapi.policy.deliveryPolicy.domain.DeliveryPolicy;
 import kr.kro.moonlightmoist.shopapi.policy.deliveryPolicy.repository.DeliveryPolicyRepository;
-import kr.kro.moonlightmoist.shopapi.product.domain.Product;
-import kr.kro.moonlightmoist.shopapi.product.domain.ProductDetailImage;
-import kr.kro.moonlightmoist.shopapi.product.domain.ProductMainImage;
-import kr.kro.moonlightmoist.shopapi.product.domain.ProductOption;
+import kr.kro.moonlightmoist.shopapi.product.domain.*;
 import kr.kro.moonlightmoist.shopapi.product.dto.*;
+import kr.kro.moonlightmoist.shopapi.product.repository.DetailInfoRepository;
 import kr.kro.moonlightmoist.shopapi.product.repository.ProductRepository;
+import kr.kro.moonlightmoist.shopapi.productInfo.domain.ProductInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +30,7 @@ public class ProductServiceImpl implements ProductService{
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
     private final DeliveryPolicyRepository deliveryPolicyRepository;
+    private final DetailInfoRepository detailInfoRepository;
 
     Product toEntity (ProductRequest dto) {
 
@@ -119,6 +120,36 @@ public class ProductServiceImpl implements ProductService{
         List<ProductResForList> productsRes = productList.stream().map(p -> p.toDTOForList()).toList();
 
         return productsRes;
+    }
+
+    @Override
+    @Transactional
+    public Long modify(Long id, ProductRequest dto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("상품을 찾을 수 없습니다. id: " + id));
+
+        Category category = categoryRepository.findById(dto.getCategory().getId()).get();
+        Brand brand = brandRepository.findById(dto.getBrand().getId()).get();
+        DeliveryPolicy deliveryPolicy = deliveryPolicyRepository.findById(dto.getDeliveryPolicy().getId()).get();
+        DetailInfo detailInfo = detailInfoRepository.findById(dto.getDetailInfo().getId()).get();
+
+        DetailInfo modifiedDetailInfo = detailInfo.changeDetailInfo(dto.getDetailInfo());
+
+        product.setCategory(category);
+        product.setBrand(brand);
+        product.setBasicInfo(dto.getBasicInfo().toDomain());
+        product.setSaleInfo(dto.getSaleInfo().toDomain());
+        product.setDeliveryPolicy(deliveryPolicy);
+        product.setDetailInfo(modifiedDetailInfo);
+
+        Product modifiedProduct = productRepository.findById(id).get();
+        System.out.println("modifiedProduct.getCategory() = " + modifiedProduct.getCategory());
+        System.out.println("modifiedProduct.getBrand() = " + modifiedProduct.getBrand());
+        System.out.println("modifiedProduct.getDeliveryPolicy() = " + modifiedProduct.getDeliveryPolicy());
+        System.out.println("modifiedProduct.getSaleInfo() = " + modifiedProduct.getSaleInfo());
+        System.out.println("modifiedProduct.getBasicInfo() = " + modifiedProduct.getBasicInfo());
+
+        return 0L;
     }
 
 }
