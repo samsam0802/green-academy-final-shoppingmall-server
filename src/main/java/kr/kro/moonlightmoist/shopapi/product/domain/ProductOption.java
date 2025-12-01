@@ -26,7 +26,7 @@ public class ProductOption extends BaseTimeEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = false, nullable = false)
     private String optionName;
 
     @Column(nullable = false)
