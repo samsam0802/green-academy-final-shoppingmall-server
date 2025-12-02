@@ -2,6 +2,7 @@ package kr.kro.moonlightmoist.shopapi.review.service;
 
 import jakarta.transaction.Transactional;
 import kr.kro.moonlightmoist.shopapi.product.domain.Product;
+import kr.kro.moonlightmoist.shopapi.product.domain.ProductMainImage;
 import kr.kro.moonlightmoist.shopapi.product.repository.ProductRepository;
 import kr.kro.moonlightmoist.shopapi.review.domain.Review;
 import kr.kro.moonlightmoist.shopapi.review.domain.ReviewImage;
@@ -79,11 +80,22 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<ReviewDTO> getListByUser(Long userId) {
-        List<Review> list = reviewRepository.findByUserId(userId);
+        List<Review> reviewList = reviewRepository.findByUserId(userId);
 
-        return list.stream().map(review -> {
+        return reviewList.stream().map(review -> {
+            //리뷰 이미지 URL
             List<String> imageUrls = review.getReviewImages().stream()
                     .map(url -> url.getImageUrl()).toList();
+
+            //제품 메인 이미지
+            List<ProductMainImage> productMainImgs = review.getProduct().getMainImages();
+            String productImage = productMainImgs.get(0).getImageUrl();
+
+            //제품명
+            String productName = review.getProduct().getBasicInfo().getProductName();
+
+            //브랜드명
+            String brandName = review.getProduct().getBrand().getName();
 
             return ReviewDTO.builder()
                     .id(review.getId())
@@ -91,6 +103,9 @@ public class ReviewServiceImpl implements ReviewService {
                     .rating(review.getRating())
                     .userId(review.getUser().getId())
                     .productId(review.getProduct().getId())
+                    .productImage(productImage)
+                    .productName(productName)
+                    .brandName(brandName)
                     .createdAt(review.getCreatedAt())
                     .imageUrls(imageUrls)
                     .build();
