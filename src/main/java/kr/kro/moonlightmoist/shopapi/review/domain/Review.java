@@ -2,12 +2,12 @@ package kr.kro.moonlightmoist.shopapi.review.domain;
 
 import jakarta.persistence.*;
 import kr.kro.moonlightmoist.shopapi.common.domain.BaseTimeEntity;
+import kr.kro.moonlightmoist.shopapi.order.domain.Order;
 import kr.kro.moonlightmoist.shopapi.product.domain.Product;
 import kr.kro.moonlightmoist.shopapi.user.domain.User;
 import lombok.*;
 import org.hibernate.annotations.Check;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +46,10 @@ public class Review extends BaseTimeEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ElementCollection
     @CollectionTable(name = "review_images", joinColumns = @JoinColumn(name = "review_id"))

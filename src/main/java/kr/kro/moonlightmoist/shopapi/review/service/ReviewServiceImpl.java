@@ -1,6 +1,8 @@
 package kr.kro.moonlightmoist.shopapi.review.service;
 
 import jakarta.transaction.Transactional;
+import kr.kro.moonlightmoist.shopapi.order.domain.Order;
+import kr.kro.moonlightmoist.shopapi.order.repository.OrderRepository;
 import kr.kro.moonlightmoist.shopapi.product.domain.Product;
 import kr.kro.moonlightmoist.shopapi.product.domain.ProductMainImage;
 import kr.kro.moonlightmoist.shopapi.product.repository.ProductRepository;
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,13 +30,19 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
 
     public Product getProduct(Long productId) {
       return productRepository.findById(productId).get();
     }
 
     public User getUser() {
-        return userRepository.findById(2L).get();
+        return userRepository.findById(1L).get();
+    }
+
+    public List<Order> getOrder() {
+        List<Order> orderByUserId = orderRepository.findOrderByUserId(2L);
+        return orderByUserId;
     }
 
     @Override
@@ -97,6 +106,9 @@ public class ReviewServiceImpl implements ReviewService {
             //브랜드명
             String brandName = review.getProduct().getBrand().getName();
 
+            //주문일자
+            LocalDateTime purchaseDate = review.getOrder().getCreatedAt();
+
             return ReviewDTO.builder()
                     .id(review.getId())
                     .content(review.getContent())
@@ -107,6 +119,7 @@ public class ReviewServiceImpl implements ReviewService {
                     .productName(productName)
                     .brandName(brandName)
                     .createdAt(review.getCreatedAt())
+                    .purchaseDate(purchaseDate)
                     .imageUrls(imageUrls)
                     .build();
         }).toList();
@@ -117,12 +130,15 @@ public class ReviewServiceImpl implements ReviewService {
 
         Product product = getProduct(dto.getProductId());
         User user = getUser();
+        List<Order> orders = getOrder();
+        Order order = orders.get(0);
 
         Review review = Review.builder()
                 .user(user)
                 .content(dto.getContent())
                 .rating(dto.getRating())
                 .product(product)
+                .order(order)
                 .build();
 
         Review reviewSave = reviewRepository.save(review);

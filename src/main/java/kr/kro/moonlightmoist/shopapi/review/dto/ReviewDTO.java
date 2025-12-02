@@ -1,10 +1,7 @@
 package kr.kro.moonlightmoist.shopapi.review.dto;
 
-import jakarta.persistence.Column;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +19,12 @@ public class ReviewDTO {
     private Long userId;
     private String loginId;
     private Long productId;
+    private Long orderId;
     private String productImage;
     private String productName;
     private String brandName;
     private LocalDateTime createdAt;
+    private LocalDateTime purchaseDate;
 
     private List<String> imageUrls = new ArrayList<>();
     private List<String> deleteImgUrls = new ArrayList<>();
