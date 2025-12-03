@@ -25,8 +25,9 @@ public class ReviewDTO {
     private String brandName;
     private LocalDateTime createdAt;
     private LocalDateTime purchaseDate;
-
+    @Builder.Default
     private List<String> imageUrls = new ArrayList<>();
+    @Builder.Default
     private List<String> deleteImgUrls = new ArrayList<>();
 
 }
