@@ -29,22 +29,24 @@ public class Inquiry extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;   // 문의내용
 
+    @Builder.Default
     @Column(name = "is_answered")
-    private boolean answered;   // 답변 완료여부
+    private boolean answered = false;   // 답변 완료여부
 
-    @Column(nullable = false)
+    @Column(nullable = true) // 처음엔 답변이 없음으로 true
     private String answerContent; // 답변내용
 
+    @Builder.Default
     @Column(name = "is_visible")
-    private boolean visible;   // 노출 여부
+    private boolean visible = true;   // 노출 여부
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private InquiryStatus inquiryStatus; // 진행 상태
+    private InquiryStatus inquiryStatus = InquiryStatus.PENDING; // 진행 상태
 
-    private boolean agreeEmailContact; // 이메일알림동의
+    private boolean emailAgreement; // 이메일알림동의
 
-    private boolean agreeSmsContact; // sms 알림동의
+    private boolean smsAgreement; // sms 알림동의
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

@@ -28,7 +28,7 @@ public class UserWithdrawal extends BaseTimeEntity { // 회원탈퇴 테이블
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
-    // 관리자 회원복구 로직 병국이형
+
 
 
 }
