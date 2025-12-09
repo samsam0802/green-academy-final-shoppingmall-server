@@ -1,6 +1,8 @@
 package kr.kro.moonlightmoist.shopapi.product.domain;
 
 import jakarta.persistence.*;
+import kr.kro.moonlightmoist.shopapi.common.domain.BaseTimeEntity;
+import kr.kro.moonlightmoist.shopapi.user.domain.User;
 import lombok.*;
 
 
@@ -11,18 +13,20 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class SearchHistory {
+public class SearchHistory extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
-    private Long userId;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = true)
     private String sessionIdentifier;
 
     @Column(nullable = false, length = 150)
     private String keyword;
+
 }

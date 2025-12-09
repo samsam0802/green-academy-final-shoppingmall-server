@@ -3,12 +3,15 @@ package kr.kro.moonlightmoist.shopapi.product.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PopularKeywordResponseDTO {
+public class SearchPopularKeywordResponseDTO {
     private String keyword;
-    private long count;
+    private int count;
+    private LocalDateTime createdAt;
 }
