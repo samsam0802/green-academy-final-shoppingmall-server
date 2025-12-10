@@ -28,13 +28,11 @@ public class PointExpireServiceImpl implements PointExpireService {
     @Override
     @Transactional
     public int expirePoints() {
-        List<PointHistory> expiredPoints = pointHistoryRepository.findExpiredPoints(LocalDateTime.now());
-        if(expiredPoints.isEmpty()) {
+        int cnt = pointHistoryRepository.updatePointStatusToExpired(LocalDateTime.now());
+        if (cnt == 0) {
             log.info("만료 처리할 포인트가 없습니다.");
         }
-        expiredPoints.forEach(ph -> ph.setPointStatus(PointStatus.EXPIRED));
-
-        return expiredPoints.size();
+        return cnt;
     }
 
 }

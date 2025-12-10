@@ -2,6 +2,7 @@ package kr.kro.moonlightmoist.shopapi.pointHistory.repository;
 
 import kr.kro.moonlightmoist.shopapi.pointHistory.domain.PointHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -37,6 +38,12 @@ public interface PointHistoryRepository extends JpaRepository<PointHistory, Long
     )
     List<PointHistory> findExpiredPoints(@Param("now") LocalDateTime now);
 
-    // 포인트 만료 처리
-//    int updatePointStatusToExpired(@Param())
+    // 만료기간 지난 포인트 일괄 만료 처리 (업데이트 쿼리 1개 : 벌크 업데이트)
+    @Modifying
+    @Query("UPDATE PointHistory p " +
+            "SET p.pointStatus = 'EXPIRED' " +
+            "WHERE p.pointStatus = 'EARNED' " +
+            "AND p.expiredAt < :now " +
+            "AND p.deleted = false")
+    int updatePointStatusToExpired(@Param("now") LocalDateTime now);
 }

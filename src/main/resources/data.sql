@@ -363,6 +363,7 @@ INSERT INTO point_histories
 (user_id, point_status, point_value, remaining_point, expired_at, is_deleted, created_at, updated_at) VALUES
 (1, 'EARNED', 100, 100, '2026-12-01 00:00:00', FALSE, '2025-12-01 00:00:00', '2025-12-01 00:00:00'),
 (1, 'EARNED', 100, 100, '2026-12-01 00:05:00', FALSE, '2025-12-01 00:05:00', '2025-12-01 00:05:00'),
+(1, 'EARNED', 1000,1000, '2025-12-10 09:30:00', FALSE, NOW(), NOW()),
 (1, 'EXPIRED', 100, 100, '2024-12-01 00:05:00', FALSE, '2023-12-01 00:05:00', '2024-12-01 00:05:00');
 
 
