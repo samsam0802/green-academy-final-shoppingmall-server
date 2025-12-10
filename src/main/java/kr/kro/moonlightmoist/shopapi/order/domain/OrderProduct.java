@@ -2,6 +2,7 @@ package kr.kro.moonlightmoist.shopapi.order.domain;
 
 import jakarta.persistence.*;
 import kr.kro.moonlightmoist.shopapi.common.domain.BaseTimeEntity;
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderProductResBySearch;
 import kr.kro.moonlightmoist.shopapi.product.domain.Product;
 import kr.kro.moonlightmoist.shopapi.product.domain.ProductOption;
 import lombok.*;
@@ -37,6 +38,18 @@ public class OrderProduct extends BaseTimeEntity {
 
     public void updateStatus(OrderProductStatus orderProductStatus) {
         this.orderProductStatus=orderProductStatus;
+    }
+
+    public OrderProductResBySearch toDtoForOrderProductResBySearch() {
+        OrderProductResBySearch orderProductRes = OrderProductResBySearch.builder()
+                .id(this.getId())
+                .productName(this.getProductOption().getProduct().getBasicInfo().getProductName())
+                .productOptionName(this.getProductOption().getOptionName())
+                .orderProductStatus(this.getOrderProductStatus())
+                .quantity(this.getQuantity())
+                .totalAmount(this.getPurchasedPrice()*this.getQuantity())
+                .build();
+        return orderProductRes;
     }
 
 }

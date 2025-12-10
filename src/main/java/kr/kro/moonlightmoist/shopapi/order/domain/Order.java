@@ -2,6 +2,7 @@ package kr.kro.moonlightmoist.shopapi.order.domain;
 
 import jakarta.persistence.*;
 import kr.kro.moonlightmoist.shopapi.common.domain.BaseTimeEntity;
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderResBySearch;
 import kr.kro.moonlightmoist.shopapi.policy.deliveryPolicy.domain.DeliveryPolicy;
 import kr.kro.moonlightmoist.shopapi.user.domain.User;
 import lombok.*;
@@ -79,6 +80,19 @@ public class Order extends BaseTimeEntity {
 
     public void applyOrderCoupon(OrderCoupon orderCoupon) {
         this.orderCoupon=orderCoupon;
+    }
+
+    public OrderResBySearch toDtoForOrderResBySearch() {
+        OrderResBySearch orderRes = OrderResBySearch.builder()
+                .id(this.getId())
+                .orderDate(this.getCreatedAt().toLocalDate())
+                .ordererName(this.user.getName())
+                .receiverName(this.getReceiverName())
+                .orderNumber(this.getOrderNumber())
+                .paymentMethod(this.getPaymentMethod())
+                .orderProducts(this.getOrderProducts().stream().map(op -> op.toDtoForOrderProductResBySearch()).toList())
+                .build();
+        return orderRes;
     }
 
 

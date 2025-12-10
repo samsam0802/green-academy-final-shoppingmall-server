@@ -1,7 +1,9 @@
 package kr.kro.moonlightmoist.shopapi.order.controller;
 
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderResBySearch;
 import kr.kro.moonlightmoist.shopapi.order.dto.OrderRequestDTO;
 import kr.kro.moonlightmoist.shopapi.order.dto.OrderResponseDTO;
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderSearchCondition;
 import kr.kro.moonlightmoist.shopapi.order.service.OrderCouponService;
 import kr.kro.moonlightmoist.shopapi.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -48,5 +50,12 @@ public class OrderController {
         log.info("deleteOneOrder 메서드 실행 orderId:{}", orderId);
         orderService.deleteOneOrder(orderId);
         return ResponseEntity.ok("삭제 성공");
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<OrderResBySearch>> searchOrdersByCondition(@RequestBody OrderSearchCondition condition) {
+        List<OrderResBySearch> orderResBySearches = orderService.searchOrdersByCondition(condition);
+
+        return ResponseEntity.ok(orderResBySearches);
     }
 }

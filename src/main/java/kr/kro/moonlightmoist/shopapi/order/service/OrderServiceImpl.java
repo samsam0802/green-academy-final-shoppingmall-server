@@ -241,4 +241,11 @@ public class OrderServiceImpl implements OrderService{
 
     }
 
+    @Override
+    public List<OrderResBySearch> searchOrdersByCondition(OrderSearchCondition condition) {
+        List<Order> orderList = orderRepository.search(condition);
+        List<OrderResBySearch> orderResBySearches = orderList.stream().map(o->o.toDtoForOrderResBySearch()).toList();
+        return orderResBySearches;
+    }
+
 }

@@ -1,14 +1,8 @@
 package kr.kro.moonlightmoist.shopapi.order.service;
 
-import com.siot.IamportRestClient.response.Payment;
-import kr.kro.moonlightmoist.shopapi.order.domain.Order;
-import kr.kro.moonlightmoist.shopapi.order.domain.OrderProduct;
-import kr.kro.moonlightmoist.shopapi.order.dto.OrderProductRequestDTO;
-import kr.kro.moonlightmoist.shopapi.order.dto.OrderRequestDTO;
-import kr.kro.moonlightmoist.shopapi.order.dto.OrderResponseDTO;
+import kr.kro.moonlightmoist.shopapi.order.dto.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
@@ -20,5 +14,6 @@ public interface OrderService {
     // 결제 검증이 끝나고 주문 상품 상태를 결제 완료로 변경
     void completeOrder(String merchantUid);
     void deleteOneOrder(Long orderId);
+    List<OrderResBySearch> searchOrdersByCondition(OrderSearchCondition condition);
 
 }
