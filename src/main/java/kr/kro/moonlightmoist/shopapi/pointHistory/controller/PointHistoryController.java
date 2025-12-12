@@ -43,4 +43,12 @@ public class PointHistoryController {
 
         return ResponseEntity.ok("ok");
     }
+
+    @GetMapping("/rollback/{orderId}")
+    public ResponseEntity<String> rollbackPoint(@PathVariable(name = "orderId") Long orderId) {
+        pointHistoryService.rollbackPoint(orderId);
+
+        return ResponseEntity.ok("ok");
+    }
+
 }

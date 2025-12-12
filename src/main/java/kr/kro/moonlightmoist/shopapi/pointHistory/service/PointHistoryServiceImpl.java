@@ -40,7 +40,7 @@ public class PointHistoryServiceImpl implements PointHistoryService{
 
     @Override
     @Transactional
-    public void earnPoint(Long userId, Long orderId, int pointValue) {
+    public Long earnPoint(Long userId, Long orderId, int pointValue) {
         User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
         Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
 
@@ -53,11 +53,13 @@ public class PointHistoryServiceImpl implements PointHistoryService{
                 .expiredAt(LocalDateTime.now().plusYears(1))
                 .build();
         pointHistoryRepository.save(pointHistory);
+
+        return pointHistory.getId();
     }
 
     @Override
     @Transactional
-    public void usePoint(Long userId, Long orderId, int amountToUse) {
+    public Long usePoint(Long userId, Long orderId, int amountToUse) {
         // 유효기간 얼마 안남은 순서로 가져옴
         List<PointHistory> allActivePoints = pointHistoryRepository.findAllActivePoints(userId, LocalDateTime.now());
         Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
@@ -115,11 +117,13 @@ public class PointHistoryServiceImpl implements PointHistoryService{
             detail.setUsedPointHistory(usedHistory);
             pointUsageDetailRepository.save(detail);
         });
+
+        return usedHistory.getId();
     }
 
     @Override
     @Transactional
-    public void rollbackPoint(Long orderId) {
+    public Long rollbackPoint(Long orderId) {
 
         PointHistory usedHistory = pointHistoryRepository.findByOrderId(orderId)
                 .stream().filter(h -> h.getPointStatus().equals(PointStatus.USED))
@@ -148,6 +152,6 @@ public class PointHistoryServiceImpl implements PointHistoryService{
                 .pointValue(order.getUsedPoints())
                 .build();
 
-        pointHistoryRepository.save(cancelledHistory);
+        return pointHistoryRepository.save(cancelledHistory).getId();
     }
 }
