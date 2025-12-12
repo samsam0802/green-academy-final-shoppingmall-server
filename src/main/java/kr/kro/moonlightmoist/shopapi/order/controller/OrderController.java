@@ -7,6 +7,8 @@ import kr.kro.moonlightmoist.shopapi.order.dto.OrderSearchCondition;
 import kr.kro.moonlightmoist.shopapi.order.service.OrderCouponService;
 import kr.kro.moonlightmoist.shopapi.order.service.OrderService;
 import kr.kro.moonlightmoist.shopapi.pointHistory.service.PointHistoryService;
+import kr.kro.moonlightmoist.shopapi.review.dto.PageRequestDTO;
+import kr.kro.moonlightmoist.shopapi.review.dto.PageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -46,9 +48,18 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOneOrder(orderId));
     }
 
-    @GetMapping("/list")
-    public List<OrderResponseDTO> getOrderList(@RequestParam Long userId) {
-        return orderService.getOrderList(userId);
+    @GetMapping("/list/{userId}")
+    public ResponseEntity<PageResponseDTO<OrderResponseDTO>> getOrderList(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "latest") String sort, // 기본 최신순
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(page)
+                .size(size)
+                .build();
+        return ResponseEntity.ok(orderService.getOrderList(userId, sort, pageRequestDTO));
     }
 
     @DeleteMapping("")

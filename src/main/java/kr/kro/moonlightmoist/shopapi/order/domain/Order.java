@@ -2,8 +2,13 @@ package kr.kro.moonlightmoist.shopapi.order.domain;
 
 import jakarta.persistence.*;
 import kr.kro.moonlightmoist.shopapi.common.domain.BaseTimeEntity;
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderCouponResponseDTO;
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderProductResponseDTO;
 import kr.kro.moonlightmoist.shopapi.order.dto.OrderResBySearch;
+import kr.kro.moonlightmoist.shopapi.order.dto.OrderResponseDTO;
 import kr.kro.moonlightmoist.shopapi.policy.deliveryPolicy.domain.DeliveryPolicy;
+import kr.kro.moonlightmoist.shopapi.product.domain.ImageType;
+import kr.kro.moonlightmoist.shopapi.product.domain.ProductMainImage;
 import kr.kro.moonlightmoist.shopapi.user.domain.User;
 import lombok.*;
 import org.hibernate.annotations.Check;
@@ -87,6 +92,52 @@ public class Order extends BaseTimeEntity {
 
     public void deleteOrder() {
         this.deleted=true;
+    }
+
+    public OrderResponseDTO toDto() {
+        OrderCoupon orderCoupon = this.getOrderCoupon();
+        OrderCouponResponseDTO orderCouponResponseDTO = null;
+        if(orderCoupon != null) {
+            orderCouponResponseDTO = orderCoupon.toDto();
+        }
+
+        OrderResponseDTO orderResponseDTO = OrderResponseDTO.builder()
+                .id(this.getId())
+                .orderNumber(this.getOrderNumber())
+                .deliveryFee(this.getDeliveryFee())
+                .deliveryRequest(this.getDeliveryRequest())
+                .detailedAddress(this.getDetailedAddress())
+                .discountAmount(this.getDiscountAmount())
+                .usedPoints(this.getUsedPoints())
+                .earnedPoints(this.getEarnedPoints())
+                .finalAmount(this.getFinalAmount())
+                .expectedDeliveryDate(this.getExpectedDeliveryDate())
+                .receiverName(this.getReceiverName())
+                .receiverPhone(this.getReceiverPhone())
+                .streetAddress(this.getStreetAddress())
+                .paymentMethod(this.getPaymentMethod())
+                .totalProductAmount(this.getTotalProductAmount())
+                .postalCode(this.getPostalCode())
+                .orderDate(this.getCreatedAt().toLocalDate())
+                .orderCoupon(orderCouponResponseDTO)
+                .build();
+
+
+        for(OrderProduct op : this.getOrderProducts()){
+            OrderProductResponseDTO orderProductResponseDTO = OrderProductResponseDTO.builder()
+                    .id(op.getId())
+                    .productId(op.getProductOption().getProduct().getId())
+                    .brandName(op.getProductOption().getProduct().getBrand().getName())
+                    .productName(op.getProductOption().getProduct().getBasicInfo().getProductName())
+                    .productOptionName(op.getProductOption().getOptionName())
+                    .purchasedPrice(op.getPurchasedPrice())
+                    .quantity(op.getQuantity())
+                    .imageUrl(op.getProductOption().getProduct().getMainImages().stream().filter(image->image.getImageType() == ImageType.THUMBNAIL).map(ProductMainImage::getImageUrl).findFirst().orElse(null))
+                    .orderProductStatus(op.getOrderProductStatus())
+                    .build();
+            orderResponseDTO.getOrderProducts().add(orderProductResponseDTO);
+        }
+        return orderResponseDTO;
     }
 
     public OrderResBySearch toDtoForOrderResBySearch() {

@@ -15,6 +15,8 @@ import kr.kro.moonlightmoist.shopapi.product.domain.ImageType;
 import kr.kro.moonlightmoist.shopapi.product.domain.ProductMainImage;
 import kr.kro.moonlightmoist.shopapi.product.domain.ProductOption;
 import kr.kro.moonlightmoist.shopapi.product.repository.ProductOptionRepository;
+import kr.kro.moonlightmoist.shopapi.review.dto.PageRequestDTO;
+import kr.kro.moonlightmoist.shopapi.review.dto.PageResponseDTO;
 import kr.kro.moonlightmoist.shopapi.user.domain.User;
 import kr.kro.moonlightmoist.shopapi.user.repository.UserRepository;
 import kr.kro.moonlightmoist.shopapi.usercoupon.domain.UserCoupon;
@@ -23,6 +25,10 @@ import kr.kro.moonlightmoist.shopapi.usercoupon.repository.UserCouponRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,52 +80,6 @@ public class OrderServiceImpl implements OrderService{
         int freeConditionAmount = productOption.getProduct().getDeliveryPolicy().getFreeConditionAmount();
         if(totalProductAmount >= freeConditionAmount) return 0;
         return basicDeliveryFee;
-    }
-
-    public OrderResponseDTO toDto(Order order) {
-        OrderCoupon orderCoupon = order.getOrderCoupon();
-        OrderCouponResponseDTO orderCouponResponseDTO = null;
-        if(orderCoupon != null) {
-            orderCouponResponseDTO = orderCoupon.toDto();
-        }
-
-        OrderResponseDTO orderResponseDTO = OrderResponseDTO.builder()
-                .id(order.getId())
-                .orderNumber(order.getOrderNumber())
-                .deliveryFee(order.getDeliveryFee())
-                .deliveryRequest(order.getDeliveryRequest())
-                .detailedAddress(order.getDetailedAddress())
-                .discountAmount(order.getDiscountAmount())
-                .usedPoints(order.getUsedPoints())
-                .earnedPoints(order.getEarnedPoints())
-                .finalAmount(order.getFinalAmount())
-                .expectedDeliveryDate(order.getExpectedDeliveryDate())
-                .receiverName(order.getReceiverName())
-                .receiverPhone(order.getReceiverPhone())
-                .streetAddress(order.getStreetAddress())
-                .paymentMethod(order.getPaymentMethod())
-                .totalProductAmount(order.getTotalProductAmount())
-                .postalCode(order.getPostalCode())
-                .orderDate(order.getCreatedAt().toLocalDate())
-                .orderCoupon(orderCouponResponseDTO)
-                .build();
-
-
-        for(OrderProduct op : order.getOrderProducts()){
-            OrderProductResponseDTO orderProductResponseDTO = OrderProductResponseDTO.builder()
-                    .id(op.getId())
-                    .productId(op.getProductOption().getProduct().getId())
-                    .brandName(op.getProductOption().getProduct().getBrand().getName())
-                    .productName(op.getProductOption().getProduct().getBasicInfo().getProductName())
-                    .productOptionName(op.getProductOption().getOptionName())
-                    .purchasedPrice(op.getPurchasedPrice())
-                    .quantity(op.getQuantity())
-                    .imageUrl(op.getProductOption().getProduct().getMainImages().stream().filter(image->image.getImageType() == ImageType.THUMBNAIL).map(ProductMainImage::getImageUrl).findFirst().orElse(null))
-                    .orderProductStatus(op.getOrderProductStatus())
-                    .build();
-            orderResponseDTO.getOrderProducts().add(orderProductResponseDTO);
-        }
-        return orderResponseDTO;
     }
 
     @Override
@@ -196,21 +156,40 @@ public class OrderServiceImpl implements OrderService{
     @Transactional(readOnly = true)
     public OrderResponseDTO getOneOrder(Long orderId) {
         Order order = orderRepository.findById(orderId).get();
-        OrderResponseDTO orderResponseDTO = toDto(order);
+        OrderResponseDTO orderResponseDTO = order.toDto();
         return orderResponseDTO;
     }
 
     @Override
-    public List<OrderResponseDTO> getOrderList(Long userId) {
-        List<Order> orderByUserId = orderRepository.findOrderByUserId(userId);
-        log.info("orderByUserId : {}",orderByUserId);
-        List<OrderResponseDTO> ListOfOrderResponseDTO = new ArrayList<>();
-        for(Order o : orderByUserId){
-            OrderResponseDTO orderResponseDTO = toDto(o);
-            ListOfOrderResponseDTO.add(orderResponseDTO);
+    public PageResponseDTO<OrderResponseDTO> getOrderList(Long userId, String sort, PageRequestDTO pageRequestDTO) {
+        // 1. Pageable 객체 생성 및 정렬 적용 (요청된 페이징 및 정렬 정보를 DB 쿼리에 전달)
+        int page = pageRequestDTO.getPage() - 1; // 페이지 번호 (0부터 시작)
+        int size = pageRequestDTO.getSize() == null ? 10 : pageRequestDTO.getSize();
+
+        // Sort 객체 생성 및 요청된 sort 값에 따라 업데이트
+        Sort sortBy = Sort.by("createdAt").descending(); // 기본 정렬 : 최신순
+
+        if ("latest".equals(sort)) {
+            sortBy = Sort.by("createdAt").descending();
         }
 
-        return ListOfOrderResponseDTO;
+        // Pageable 객체 생성
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+
+        // 2. DB에서 요청된 페이지의 데이터만 Page<Order>로 조회
+        Page<Order> orderPage = orderRepository.findByUserId(userId, pageable);
+
+        // 3. Page<Order> 데이터를 List<OrderResponseDTO>로 매핑
+        List<OrderResponseDTO> ListOfOrderResponseDTO = orderPage.getContent().stream()
+                .map(o->o.toDto()) // toDto 메서드를 사용하여 Order -> OrderResponseDTO 변환
+                .toList();
+
+        // 4. PageResponseDTO 반환
+        return PageResponseDTO.<OrderResponseDTO>withAll()
+                .dtoList(ListOfOrderResponseDTO) // 현재 페이지의 DTO 리스트
+                .pageRequestDTO(pageRequestDTO)
+                .totalDataCount(orderPage.getTotalElements()) // DB에서 계산된 전체 항목 수
+                .build();
     }
 
     @Override
