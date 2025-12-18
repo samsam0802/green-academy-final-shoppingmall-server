@@ -45,6 +45,8 @@ public class CustomUserDetails implements UserDetails {
         return user.getEmail(); // 유저의 email을 가져옴
     }
 
+    private String getRole() { return user.getUserRole().name(); } // 유저의 권한을 가져옴
+
     @Override
     public boolean isAccountNonExpired() {
         return true; // 영구 사용 가능으로 설정

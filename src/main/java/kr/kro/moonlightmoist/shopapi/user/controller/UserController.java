@@ -99,6 +99,7 @@ public class UserController {
                     .id(userDetails.getUser().getId())
                     .loginId(userDetails.getUsername())
                     .name(userDetails.getUser().getName())
+                    .userRole(userDetails.getUser().getUserRole())
                     .build());
             return ResponseEntity.ok(LoginResponse);
 
@@ -154,6 +155,7 @@ public class UserController {
                         .id(userDetails.getUser().getId())
                         .loginId(userDetails.getUser().getLoginId())
                         .name(userDetails.getUser().getName())
+                        .userRole(userDetails.getUser().getUserRole())
                         .build());
         log.info("여기는 로그인된 사용자정보 반환: {}",response);
 
