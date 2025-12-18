@@ -10,6 +10,7 @@ import kr.kro.moonlightmoist.shopapi.user.dto.*;
 import kr.kro.moonlightmoist.shopapi.user.repository.UserRepository;
 import kr.kro.moonlightmoist.shopapi.user.service.UserService;
 import kr.kro.moonlightmoist.shopapi.user.service.UserWithdrawalService;
+import kr.kro.moonlightmoist.shopapi.usercoupon.service.UserCouponService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,16 +36,22 @@ public class UserController {
     private final UserWithdrawalService userWithdrawalService;
     private final AuthenticationManager authenticationManager; // 12-10 추가
     private final JwtTokenProvider jwtTokenProvider; // 12-12 추가
+    private final UserCouponService userCouponService;
 
     @PostMapping("/signup") // RequestMapping + ??
     public ResponseEntity<Map<String,Object>> userResister(@RequestBody UserSignUpRequest userSignUpRequest) {
         // @RequestBody JSON 데이터를 Java 객체로 자동 변환해주는 어노테이션
         User registeredUser = userRepository.save(userService.registerUser(userSignUpRequest));
+        Long registeredCouponUser = userCouponService.issue(registeredUser.getId(), 1L);
+        log.info("회원가입 컨트롤러 신규쿠폰 유저 등록완료 : {} ", registeredCouponUser);
+        log.info("회원가입 컨트롤러 신규쿠폰 등록완료된 유저는 : {} ", registeredUser.getLoginId());
+        System.out.println("======================================================================");
         log.info("유저정보 Controller => {}"  ,userSignUpRequest);
         log.info("DB에서 꺼낸 저장된 정보 => {}"  ,registeredUser);
         Map<String,Object> response = new HashMap<>();
         response.put("success", true);
         response.put("message", "회원가입이 완료되었습니다.");
+        response.put("coupon","💕신규쿠폰이 발급되었습니다💕");
         return ResponseEntity.ok(response);
     }
 
