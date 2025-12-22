@@ -23,5 +23,9 @@ public interface ProductService {
     Long modify(Long id, ProductRequest dto);
     // 카테고리별 브랜드 조회
     List<Brand> getBrandsByCategory(List<Long> depth3CategoryIds);
+    // 신상품 8개 조회
+    List<ProductResForList> getNewProducts();
+    // 베스트 상품(판매순) 8개 조회
+    List<ProductResForList> getBestProducts();
     // 상품 삭제
 }

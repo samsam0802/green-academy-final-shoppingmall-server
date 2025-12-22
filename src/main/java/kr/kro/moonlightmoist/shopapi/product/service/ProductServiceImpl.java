@@ -253,4 +253,16 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findBrandListByCategoryIds(depth3CategoryIds);
     }
 
+    @Override
+    public List<ProductResForList> getNewProducts() {
+        return productRepository.findTop8ByOrderByCreatedAtDesc()
+                .stream().map(p -> p.toDTOForList()).toList();
+    }
+
+    @Override
+    public List<ProductResForList> getBestProducts() {
+        return productRepository.findTop8ByOrderBySaleInfoTotalSalesCountDesc()
+                .stream().map(p -> p.toDTOForList()).toList();
+    }
+
 }

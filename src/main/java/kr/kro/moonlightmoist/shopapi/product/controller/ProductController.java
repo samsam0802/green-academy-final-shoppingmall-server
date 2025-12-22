@@ -169,4 +169,16 @@ public class ProductController {
 
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/new")
+    public ResponseEntity<List<ProductResForList>> getNewProducts() {
+        List<ProductResForList> result = productService.getNewProducts();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/best")
+    public ResponseEntity<List<ProductResForList>> getBestProducts() {
+        List<ProductResForList> result = productService.getBestProducts();
+        return ResponseEntity.ok(result);
+    }
 }
