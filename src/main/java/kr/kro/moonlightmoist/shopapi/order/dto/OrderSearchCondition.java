@@ -19,6 +19,5 @@ public class OrderSearchCondition {
     private LocalDate startDate;
     private LocalDate endDate;
     private List<OrderProductStatus> selectedOrderStatus;
-    private List<String> selectedDelivery;
     private List<String> selectedPayment;
 }

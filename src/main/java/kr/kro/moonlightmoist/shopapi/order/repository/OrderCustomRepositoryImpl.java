@@ -53,7 +53,6 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository{
                                 condition.getEndDate() != null ? condition.getEndDate().atTime(LocalTime.MAX) : null
                         ),
                         orderStatusFilter(condition.getSelectedOrderStatus()),
-                        //deliveryFilter(condition.getSelectedDelivery()),
                         paymentFilter(condition.getSelectedPayment())
                 )
                 .orderBy(order.createdAt.desc());
@@ -158,12 +157,6 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository{
         QOrderProduct orderProduct = QOrderProduct.orderProduct;
         return orderProduct.orderProductStatus.in(selectedOrderStatus);
     }
-
-//    private BooleanExpression deliveryFilter(List<String> selectedDelivery) {
-//        if(selectedDelivery == null || selectedDelivery.isEmpty()) return null;
-//
-//        QO
-//    }
 
     private BooleanExpression paymentFilter(List<String> selectedPayment) {
         if(selectedPayment == null || selectedPayment.isEmpty()) return null;
