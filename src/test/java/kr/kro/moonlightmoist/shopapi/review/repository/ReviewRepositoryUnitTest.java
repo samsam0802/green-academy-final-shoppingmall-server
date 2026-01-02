@@ -130,7 +130,7 @@ public class ReviewRepositoryUnitTest {
         assertThat(foundReview.get().isVisible()).isTrue();
         assertThat(foundReview.get().isDeleted()).isFalse();
         assertThat(foundReview.get().getOrderProduct()).isNotNull();
-        assertThat(foundReview.get().getOrderProduct().getId()).isEqualTo(product.getId());
+        assertThat(foundReview.get().getOrderProduct().getId()).isEqualTo(orderProduct.getId());
 
         assertThat(reviewComment.getId()).isNotNull();
         assertThat(reviewComment.getUser()).isNotNull();
