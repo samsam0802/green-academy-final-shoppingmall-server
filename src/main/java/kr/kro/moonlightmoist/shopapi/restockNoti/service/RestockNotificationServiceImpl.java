@@ -54,8 +54,10 @@ public class RestockNotificationServiceImpl implements RestockNotificationServic
     @Transactional
     public Long cancelRestockNotification(Long userId, Long optionId) {
         RestockNotification noti = restockNotificationRepository.findByUserIdAndProductOptionId(userId, optionId).orElseThrow(EntityNotFoundException::new);
-        noti.changeStatus(NotificationStatus.CANCELLED);
-        return noti.getId();
+        Long deletedId = noti.getId();
+        restockNotificationRepository.deleteById(noti.getId());
+
+        return deletedId;
     }
 
     @Override
