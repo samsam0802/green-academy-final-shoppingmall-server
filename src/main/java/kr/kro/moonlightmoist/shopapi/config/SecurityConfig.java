@@ -71,6 +71,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("http://localhost:5173",
                 "https://green-academy-final-shoppingmall-re.vercel.app",
                 "https://moisture-village.shop",
+                "https://www.moisture-village.shop",
                 "https://api.moisture-village.shop"
                 ));
 //        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
