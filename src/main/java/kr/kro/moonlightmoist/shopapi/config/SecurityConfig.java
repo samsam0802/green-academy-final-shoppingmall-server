@@ -69,7 +69,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173",
-                "https://green-academy-final-shoppingmall-re.vercel.app/",
+                "https://green-academy-final-shoppingmall-re.vercel.app",
                 "https://moisture-village.shop",
                 "https://api.moisture-village.shop"
                 ));
