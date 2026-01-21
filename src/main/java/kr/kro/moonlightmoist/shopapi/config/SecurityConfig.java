@@ -70,7 +70,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:5173",
                 "https://green-academy-final-shoppingmall-re.vercel.app",
-                "https://www.moisture-village.shop"
+                "https://www.moisture-village.shop",
+                "https://moisture-village.shop"
                 ));
 //        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
         configuration.setAllowedHeaders(List.of("*")); // 수정 BY 병국
