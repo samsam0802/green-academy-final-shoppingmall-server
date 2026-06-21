@@ -14,8 +14,7 @@ import lombok.*;
 @Getter
 public class ProductDetailImage {
 
-    @Lob
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(nullable = false)

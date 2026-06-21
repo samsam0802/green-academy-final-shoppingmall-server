@@ -20,15 +20,15 @@ public class DetailInfo extends BaseTimeEntity {
     private String capacity;
     private String skinType;
     private String usagePeriod;
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String usageMethod;
     @Column(length = 500)
     private String manufacturer;
     private String madeInCountry;
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String ingredients;
     private String functionalCertification;
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String caution;
     @Column(length = 1000)
     private String qualityGuarantee;
