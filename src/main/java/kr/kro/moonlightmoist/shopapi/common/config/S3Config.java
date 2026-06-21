@@ -1,50 +1,30 @@
 package kr.kro.moonlightmoist.shopapi.common.config;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
 
 @Configuration
 public class S3Config {
 
-    @Value("${aws.s3.bucket-name}")
-    private String bucketName;
+    @Value("${cloudinary.cloud-name}")
+    private String cloudName;
 
-    @Value("${aws.access-key-id}")
-    private String accessKey;
+    @Value("${cloudinary.api-key}")
+    private String apiKey;
 
-    @Value("${aws.secret-access-key}")
-    private String secretKey;
+    @Value("${cloudinary.api-secret}")
+    private String apiSecret;
 
-    @Value("${aws.s3.region}")
-    private String region;
-
-    // S3 클라이언트 생성 (간단한 구현)
     @Bean
-    public S3Client s3Client() {
-        return S3Client.builder()
-                .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(accessKey, secretKey)
-                ))
-                .build();
+    public Cloudinary cloudinary() {
+        return new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", cloudName,
+                "api_key", apiKey,
+                "api_secret", apiSecret,
+                "secure", true
+        ));
     }
-
-    // VaultTestController 에서 쓰던 것 주석처리
-//    @Value("${bucket-name:default-name}")
-//    private String bucketName;
-//
-//    @Value("${access-key-id:default-key-id}")
-//    private String accessKeyId;
-//
-//    @Value("${secret-access-key:default-access-key}")
-//    private String secretAccessKey;
-
-//    public String getBucketName() { return bucketName; }
-//    public String getAccessKeyId() { return accessKeyId; }
-//    public String getSecretAccessKey() { return secretAccessKey; }
 }
