@@ -4909,7 +4909,7 @@ INSERT INTO point_histories
 (1, NULL, 'EXPIRED', 100, 100, '2024-12-01 00:05:00', FALSE, '2023-12-01 00:05:00', '2024-12-01 00:05:00');
 
 insert into point_histories (user_id, point_status, order_id, point_value, remaining_point, expired_at, is_deleted, created_at, updated_at)
-values(4, 'EARNED', null, 1000, 1000,  '2026-12-01 00:05:00.000000', 0, NOW(), NOW());
+values(4, 'EARNED', null, 1000, 1000,  '2026-12-01 00:05:00.000000', FALSE, NOW(), NOW());
 
 -- 포인트 사용 내역
 INSERT INTO point_usage_details
