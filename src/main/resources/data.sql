@@ -4973,3 +4973,26 @@ INSERT INTO faqs (inquiry_type, title, answer, user_id, created_at, updated_at) 
 
 -- 기타문의 (1개)
 ('ETC', '고객센터 운영시간이 어떻게 되나요?', '평일 10:00~17:00 (점심 12:00~14:00) / 주말·공휴일 휴무입니다. 1:1 문의는 24시간 접수 가능하며, 순차적으로 답변드립니다.', 1, NOW(), NOW());
+
+-- ===== PostgreSQL 시퀀스 보정 (id 직접 INSERT 후 auto-increment 카운터 동기화) =====
+SELECT setval(pg_get_serial_sequence('brands', 'id'), COALESCE(MAX(id), 1)) FROM brands;
+SELECT setval(pg_get_serial_sequence('cart_products', 'id'), COALESCE(MAX(id), 1)) FROM cart_products;
+SELECT setval(pg_get_serial_sequence('carts', 'id'), COALESCE(MAX(id), 1)) FROM carts;
+SELECT setval(pg_get_serial_sequence('categories', 'id'), COALESCE(MAX(id), 1)) FROM categories;
+SELECT setval(pg_get_serial_sequence('coupons', 'id'), COALESCE(MAX(id), 1)) FROM coupons;
+SELECT setval(pg_get_serial_sequence('delivery_policies', 'id'), COALESCE(MAX(id), 1)) FROM delivery_policies;
+SELECT setval(pg_get_serial_sequence('faqs', 'id'), COALESCE(MAX(id), 1)) FROM faqs;
+SELECT setval(pg_get_serial_sequence('inquiries', 'id'), COALESCE(MAX(id), 1)) FROM inquiries;
+SELECT setval(pg_get_serial_sequence('order_products', 'id'), COALESCE(MAX(id), 1)) FROM order_products;
+SELECT setval(pg_get_serial_sequence('orders', 'id'), COALESCE(MAX(id), 1)) FROM orders;
+SELECT setval(pg_get_serial_sequence('point_histories', 'id'), COALESCE(MAX(id), 1)) FROM point_histories;
+SELECT setval(pg_get_serial_sequence('point_usage_details', 'id'), COALESCE(MAX(id), 1)) FROM point_usage_details;
+SELECT setval(pg_get_serial_sequence('product_detail_images', 'id'), COALESCE(MAX(id), 1)) FROM product_detail_images;
+SELECT setval(pg_get_serial_sequence('product_detail_info', 'id'), COALESCE(MAX(id), 1)) FROM product_detail_info;
+SELECT setval(pg_get_serial_sequence('product_main_images', 'id'), COALESCE(MAX(id), 1)) FROM product_main_images;
+SELECT setval(pg_get_serial_sequence('product_options', 'id'), COALESCE(MAX(id), 1)) FROM product_options;
+SELECT setval(pg_get_serial_sequence('products', 'id'), COALESCE(MAX(id), 1)) FROM products;
+SELECT setval(pg_get_serial_sequence('restock_notifications', 'id'), COALESCE(MAX(id), 1)) FROM restock_notifications;
+SELECT setval(pg_get_serial_sequence('reviews', 'id'), COALESCE(MAX(id), 1)) FROM reviews;
+SELECT setval(pg_get_serial_sequence('user_coupons', 'id'), COALESCE(MAX(id), 1)) FROM user_coupons;
+SELECT setval(pg_get_serial_sequence('users', 'id'), COALESCE(MAX(id), 1)) FROM users;
