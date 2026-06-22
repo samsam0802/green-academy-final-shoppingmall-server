@@ -4987,9 +4987,7 @@ SELECT setval(pg_get_serial_sequence('order_products', 'id'), COALESCE(MAX(id), 
 SELECT setval(pg_get_serial_sequence('orders', 'id'), COALESCE(MAX(id), 1)) FROM orders;
 SELECT setval(pg_get_serial_sequence('point_histories', 'id'), COALESCE(MAX(id), 1)) FROM point_histories;
 SELECT setval(pg_get_serial_sequence('point_usage_details', 'id'), COALESCE(MAX(id), 1)) FROM point_usage_details;
-SELECT setval(pg_get_serial_sequence('product_detail_images', 'id'), COALESCE(MAX(id), 1)) FROM product_detail_images;
 SELECT setval(pg_get_serial_sequence('product_detail_info', 'id'), COALESCE(MAX(id), 1)) FROM product_detail_info;
-SELECT setval(pg_get_serial_sequence('product_main_images', 'id'), COALESCE(MAX(id), 1)) FROM product_main_images;
 SELECT setval(pg_get_serial_sequence('product_options', 'id'), COALESCE(MAX(id), 1)) FROM product_options;
 SELECT setval(pg_get_serial_sequence('products', 'id'), COALESCE(MAX(id), 1)) FROM products;
 SELECT setval(pg_get_serial_sequence('restock_notifications', 'id'), COALESCE(MAX(id), 1)) FROM restock_notifications;
