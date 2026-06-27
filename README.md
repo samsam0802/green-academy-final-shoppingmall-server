@@ -9,10 +9,12 @@
 - 관리자 주문 내역 검색 및 상태 관리 (담당)
 - EXPLAIN ANALYZE로 Seq Scan 원인 파악 후 복합 인덱스 추가 → 쿼리 실행 시간 11배 개선
 
+
 ### 배포
 기존 AWS EC2에서 비용 문제로 Render로 전환하였습니다.
 
 배포 주소 : https://www.moisture-village.shop/
+
 
 ### 기술적 개선 사항
 주문 내역 조회 쿼리를 EXPLAIN ANALYZE로 분석한 결과, orders와 order_products 
