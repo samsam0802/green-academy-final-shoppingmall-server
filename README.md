@@ -14,9 +14,6 @@
 
 배포 주소 : https://www.moisture-village.shop/
 
-### 주요 구현 기능
-장바구니, 주문/결제, 관리자 주문 내역 검색, 주문 상태 관리 기능을 구현하였습니다.
-
 ### 기술적 개선 사항
 주문 내역 조회 쿼리를 EXPLAIN ANALYZE로 분석한 결과, orders와 order_products 
 테이블에서 Seq Scan이 발생하는 것을 확인했습니다.
